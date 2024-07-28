@@ -1,29 +1,28 @@
 <?php
 
-class car{
+class Car {
     private $make;
     private $model;
     private $vin;
-    function __construct($make,$model,$vin)
-    {
+
+    public function __construct($vin, $make, $model) {
         $this->make = $make;
         $this->model = $model;
         $this->vin = $vin;
-        
-    }
-    function getdetails(){
-        echo $this->make;
-        echo $this->model;
-        echo $this->vin;
-    }
-    function __destruct()
-    {
-        echo "the odject is empty";
     }
 
+    public function getVin() {
+        return $this->vin;
+    }
+
+    public function __toString() {
+        return $this->make . " " . $this->model . " (VIN: " . $this->vin . ")";
+    }
+
+    public function __destruct() {
+        echo "The object is being destroyed.\n";
+    }
 }
-
-
 
 class Inventory {
     private $cars;
@@ -40,7 +39,7 @@ class Inventory {
         foreach ($this->cars as $key => $car) {
             if ($car->getVin() === $vin) {
                 unset($this->cars[$key]);
-                $this->cars = array_values($this->cars); // reindex array
+                $this->cars = array_values($this->cars); // Reindex array
                 return true;
             }
         }
@@ -71,3 +70,5 @@ echo "Cars in inventory after removal:\n";
 foreach ($inventory->listCars() as $car) {
     echo $car . "\n";
 }
+
+?>
